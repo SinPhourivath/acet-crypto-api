@@ -5,5 +5,7 @@ public enum Algorithm {
 
     ML_KEM,
 
-    ECDH
+    ECDH,
+
+    X25519_ML_KEM
 }
