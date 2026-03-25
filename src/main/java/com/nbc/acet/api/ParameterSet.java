@@ -9,7 +9,7 @@ public enum ParameterSet {
     ECDSA_P256, ECDSA_P384,
 
     // ECDH
-    ECDH_P256, ECDH_P384,
+    X25519,
 
     // FIPS 203 — ML-KEM
     ML_KEM_512, ML_KEM_768, ML_KEM_1024,
