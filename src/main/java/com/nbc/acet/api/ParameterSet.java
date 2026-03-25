@@ -11,9 +11,6 @@ public enum ParameterSet {
     // ECDH
     ECDH_P256, ECDH_P384,
 
-    // Key Agreement
-    X25519,
-
     // FIPS 203 — ML-KEM
     ML_KEM_512, ML_KEM_768, ML_KEM_1024,
 

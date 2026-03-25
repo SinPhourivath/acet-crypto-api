@@ -12,16 +12,22 @@ package com.nbc.acet.api;
  */
 public interface CryptoOperationProvider {
 
-    /** e.g. "BouncyCastle-1.83", "SunJCE-21", "Acme-HSM-2.0" */
-    String providerId();
+    /** Cryptographic provider implementation (free-form string, not enum).
+     *  e.g. "BouncyCastle-1.83", "SunJCE-21"
+     */
+    String provider();
 
-    /** e.g. "RSA", "ML-KEM", "X25519" */
-    String algorithm();
+    /** Algorithm category (enum). Independent of parameter set. */
+    Algorithm algorithm();
 
-    /** Routes to correct benchmark harness and CAVP validator */
+    /** High-level classification of the algorithm (enum).
+     *  Used for grouping operations like SIGN, VERIFY, KEY_EXCHANGE.
+     */
     AlgorithmFamily algorithmFamily();
 
-    /** Specific parameter set this provider handles */
+    /** Concrete parameterization of the algorithm (enum).
+     *  e.g. key size, curve, or security level.
+     */
     ParameterSet parameterSet();
 
     // -------------------------------------------------------------------------
@@ -36,13 +42,13 @@ public interface CryptoOperationProvider {
 
     default byte[] sign(byte[] message, byte[] privateKey) throws Exception {
         throw new UnsupportedOperationException(
-                providerId() + " does not support sign()");
+                provider() + " does not support sign()");
     }
 
     default boolean verify(byte[] message, byte[] signature,
                            byte[] publicKey) throws Exception {
         throw new UnsupportedOperationException(
-                providerId() + " does not support verify()");
+                provider() + " does not support verify()");
     }
 
     // -------------------------------------------------------------------------
@@ -51,13 +57,13 @@ public interface CryptoOperationProvider {
 
     default EncapsulationResult encapsulate(byte[] publicKey) throws Exception {
         throw new UnsupportedOperationException(
-                providerId() + " does not support encapsulate()");
+                provider() + " does not support encapsulate()");
     }
 
     default byte[] decapsulate(byte[] encapsulation,
                                byte[] privateKey) throws Exception {
         throw new UnsupportedOperationException(
-                providerId() + " does not support decapsulate()");
+                provider() + " does not support decapsulate()");
     }
 
     // -------------------------------------------------------------------------
@@ -66,7 +72,7 @@ public interface CryptoOperationProvider {
 
     default byte[] agree(byte[] myPrivateKey, byte[] theirPublicKey) throws Exception {
         throw new UnsupportedOperationException(
-                providerId() + " does not support agree()");
+                provider() + " does not support agree()");
     }
 
     // -------------------------------------------------------------------------
